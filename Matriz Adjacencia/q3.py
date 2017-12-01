@@ -86,7 +86,9 @@ def vertices_nao_adjacente(matriz, vertices):
 def aresta_paralelas(matriz):
     for i in range(len(matriz)):
         for j in range(len(matriz[i])):
-            if matriz[i][j] == 1 and matriz[j][i] == 1 or matriz[i][j] > 1:
+            if (matriz[i][j] == 1 and matriz[j][i] == 1) and i != j:
+                return True
+            elif matriz[i][j] > 1:
                 return True
     return False
 
@@ -100,7 +102,6 @@ def arestas_incidem(vertice):
 
 
 def grau_vertice(vertice_procurar):
-    # So conta de vertice_procurar-vertice_qualquer ou tanto faz
     cont = 0
     try:
         indice = [indice for indice, vertice in vertices_index.items() if vertice == vertice_procurar][0]
@@ -109,12 +110,12 @@ def grau_vertice(vertice_procurar):
 
     for i in range(len(lista_vertices)):
         cont += matriz_adjacencia[i][indice]
-        cont += matriz_adjacencia[indice][i]
+        if i != indice:
+            cont += matriz_adjacencia[indice][i]
     return cont
 
 
 def eh_completo(matriz):
-    # Em um grafo direcionado, faz diferenca a eu ter A-B mas n B-A
     for i in range(len(matriz)):
         for j in range(len(matriz[i])):
             if matriz[i][j] == 0 and i != j:
@@ -157,7 +158,8 @@ def main():
               "e - Saber as arestas incidentes de um vertice\n"
               "f - Esse grafo é completo?\n"
               "g - Maior caminho nesse grafo.\n"
-              "h - Sair do programa.\n")
+              "h - Imprimir a tabela.\n"
+              "i - Sair do programa.\n")
         escolha = input("Informe uma opção: ").lower()
         if escolha == 'a':
             print(vertices_nao_adjacente(matriz_adjacencia, lista_vertices))
@@ -176,6 +178,8 @@ def main():
         elif escolha == 'g':
             print(encontra_comprimento(matriz_adjacencia))
         elif escolha == 'h':
+            forma_tabular(matriz_adjacencia)
+        elif escolha == "i":
             return
 
 
