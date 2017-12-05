@@ -6,11 +6,14 @@ vertices_index = {}
 
 
 def recebe_vertices():
+    """Recebe os vertices do usuario"""
+
     vertices = input("Digite todos os vértices: ").split(", ")
     return vertices
 
 
 def recebe_arestas():
+    """Recebe as arestas do usuario: a1(A-B)"""
     arestas_dict = {}
     while True:
         arestas = input("Digite as arestas: ").split(", ")
@@ -39,6 +42,8 @@ def recebe_arestas():
 
 
 def vertice_adjacente(matriz):
+    """Verifica se algum vertice é adjacente a ele mesmo"""
+
     for i in range(len(matriz)):
         if matriz[i][i] > 0:
             return True
@@ -46,6 +51,8 @@ def vertice_adjacente(matriz):
 
 
 def criar_vertices_index():
+    """Guarda a relação de indices e vertices da matriz"""
+
     vertices_dict = {}
     for i in range(len(lista_vertices)):
         vertices_dict[i] = lista_vertices[i]
@@ -54,6 +61,8 @@ def criar_vertices_index():
 
 
 def matriz_adjacencia(vertices_dict):
+    """Inicializa a matriz de adjacencia"""
+
     matriz = []
     for i in range(len(vertices_dict.keys())):
         matriz.append([])
@@ -64,6 +73,8 @@ def matriz_adjacencia(vertices_dict):
 
 
 def forma_tabular(matriz):
+    """Imprime a matriz em formato tabular"""
+
     for i in range(len(matriz)):
         for j in range(len(matriz[i])):
             if (j - 1) < len(matriz[i]):
@@ -74,6 +85,8 @@ def forma_tabular(matriz):
 
 
 def vertices_nao_adjacente(matriz, vertices):
+    """Cria uma lista de todas as conexões não existentes entre dois vertices"""
+
     lista_nao_adjacantes = []
     for i in range(len(matriz)):
         for j in range(len(matriz[i])):
@@ -84,16 +97,18 @@ def vertices_nao_adjacente(matriz, vertices):
 
 
 def aresta_paralelas(matriz):
+    """Encontra as aresta paralelas do grafo"""
+
     for i in range(len(matriz)):
         for j in range(len(matriz[i])):
-            if (matriz[i][j] == 1 and matriz[j][i] == 1) and i != j:
-                return True
-            elif matriz[i][j] > 1:
+            if matriz[i][j] > 1:  # A-B e B-A não são paralelas em grafos direcionados
                 return True
     return False
 
 
 def arestas_incidem(vertice):
+    """Encontra as arestas(nome da aresta) que incidem sobre um vértice X"""
+
     lista = []
     for i in dict_arestas.keys():
         if vertice in dict_arestas[i]:
@@ -102,6 +117,8 @@ def arestas_incidem(vertice):
 
 
 def grau_vertice(vertice_procurar):
+    """Encontra o grau de um vértice X"""
+
     cont = 0
     try:
         indice = [indice for indice, vertice in vertices_index.items() if vertice == vertice_procurar][0]
@@ -116,6 +133,8 @@ def grau_vertice(vertice_procurar):
 
 
 def eh_completo(matriz):
+    """Verifica se o grafo é completo (Se há conexões entre quaisquer dois vertices)"""
+
     for i in range(len(matriz)):
         for j in range(len(matriz[i])):
             if matriz[i][j] == 0 and i != j:
@@ -124,6 +143,8 @@ def eh_completo(matriz):
 
 
 def criar_arestas_lista():
+    """Cria uma lista so de arestas"""
+
     lista = []
     for i in dict_arestas.values():
         lista.append(i)
@@ -131,6 +152,8 @@ def criar_arestas_lista():
 
 
 def encontra_comprimento(matriz):
+    """Encontra o maior caminho nesse vertice (Considerando apenas caminhos simples)"""
+
     maior_caminho = 0
 
     for inicio in lista_vertices:
@@ -198,11 +221,13 @@ while True:
 if __name__ == '__main__':
     main()
 
-# testes
-# J, C, E, P, M, T, Z
-# a1(J-C), a2(E-C), a3(C-E), a4(C-P), a5(C-C), a6(C-M), a7(C-T), a8(M-T), a9(T-Z)
-# J, C, B
-# a1(J-C), a2(J-B), a3(C-B)
-# a1(J-C), a2(J-B), a3(C-B), a4(J-J), a5(B-B), a6(C-C)
-# A, B, C
-# a1(A-B), a2(A-A), a3(B-A)
+"""
+testes
+J, C, E, P, M, T, Z
+a1(J-C), a2(E-C), a3(C-E), a4(C-P), a5(C-C), a6(C-M), a7(C-T), a8(M-T), a9(T-Z)
+J, C, B
+a1(J-C), a2(J-B), a3(C-B)
+a1(J-C), a2(J-B), a3(C-B), a4(J-J), a5(B-B), a6(C-C)
+A, B, C
+a1(A-B), a2(A-A), a3(B-A)
+"""
