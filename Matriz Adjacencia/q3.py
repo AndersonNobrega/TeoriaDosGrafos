@@ -227,7 +227,10 @@ J, C, E, P, M, T, Z
 a1(J-C), a2(E-C), a3(C-E), a4(C-P), a5(C-C), a6(C-M), a7(C-T), a8(M-T), a9(T-Z)
 J, C, B
 a1(J-C), a2(J-B), a3(C-B)
+a1(J-C), a2(C-J), a3(C-B), a4(B-J)
 a1(J-C), a2(J-B), a3(C-B), a4(J-J), a5(B-B), a6(C-C)
 A, B, C
 a1(A-B), a2(A-A), a3(B-A)
+A, B, C, D, E
+a1(A-B), a2(B-C), a3(C-A), a4(B-D), a5(D-E), a6(E-B)
 """
