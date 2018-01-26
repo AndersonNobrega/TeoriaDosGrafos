@@ -106,13 +106,21 @@ def aresta_paralelas(matriz):
     return False
 
 
-def arestas_incidem(vertice):
-    """Encontra as arestas(nome da aresta) que incidem sobre um vértice X"""
+def arestas_incidem(matriz, vertices, vertice_procurar):
+    """Encontra as arestas que incidem sobre um vértice X"""
 
     lista = []
-    for i in dict_arestas.keys():
-        if vertice in dict_arestas[i]:
-            lista.append(i)
+
+    for indice, vertice in enumerate(vertices):
+        if vertice_procurar == vertice:
+            indice_procurar = indice
+
+    for i in range(len(matriz)):
+        if matriz[indice_procurar][i] > 0:
+            lista.append(vertices[indice_procurar] + "-" + vertices[i])
+        if matriz[i][indice_procurar] > 0 and i != indice_procurar:
+            lista.append(vertices[i] + "-" + vertices[indice_procurar])
+
     return lista
 
 
@@ -195,7 +203,7 @@ def main():
             print("Grau do vértice: %d" % grau_vertice(vertice))
         elif escolha == 'e':
             vertice = input("Qual vertice: ").upper()
-            print("Arestas que incidem: " + str(arestas_incidem(vertice)))
+            print("Arestas que incidem: " + str(arestas_incidem(matriz_adjacencia, lista_vertices, vertice)))
         elif escolha == 'f':
             print(eh_completo(matriz_adjacencia))
         elif escolha == 'g':
