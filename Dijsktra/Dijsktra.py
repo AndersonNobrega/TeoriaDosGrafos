@@ -105,18 +105,18 @@ def criar_arestas_lista():
     return lista
 
 
-def imprime_caminho(caminho, indice, vertice_final):
-    imprimiu = []
+def acha_caminho(caminho, index, inicial):
+    if caminho[index] is None:
+        return
 
-    for i in range(indice, 0, -1):
-        if caminho[-i] not in imprimiu and caminho[-i] is not None:
-            print("%s" % (caminho[-i]), end=" - ")
-        imprimiu.append(caminho[-i])
+    acha_caminho(caminho, caminho[index], inicial)
 
-    if indice != 0:
-        print(vertice_final)
-    else:
-        print("Não existe caminho")
+    print("%s " % lista_vertices[index], end=" ")
+
+
+def imprime_caminho(caminho, indice_inicial, indice_final):
+    print("\nDe %s até %s: " % (lista_vertices[indice_inicial], lista_vertices[indice_final]), end=" ")
+    acha_caminho(caminho, indice_final, indice_inicial)
 
 
 def menor_distancia(vertices):
@@ -125,7 +125,7 @@ def menor_distancia(vertices):
 
     for i in range(len(vertices)):
         if vertices[i][1] is False and vertices[i][0] <= minimo:
-            minimo = vertices[i][1]
+            minimo = vertices[i][0]
             indice_minimo = i
 
     return indice_minimo
@@ -149,9 +149,10 @@ def dijsktra(matriz, vertices_indices, vertice_inicial, vertice_final):
         for j in range(len(vertices)):
             if not vertices[j][1] and matriz[a][j][0] != 0 and vertices[a] != inf \
                     and vertices[a][0] + matriz[a][j][1] < vertices[j][0]:
-                caminho[j] = vertices_indices[a]
+                caminho[j] = a
                 vertices[j][0] = vertices[a][0] + matriz[a][j][1]
-    imprime_caminho(caminho, indice_final, vertice_final)
+
+    imprime_caminho(caminho, indice_inicial, indice_final)
 
 
 def main():
